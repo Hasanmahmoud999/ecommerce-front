@@ -432,7 +432,10 @@ const Navbar = () => {
               )}
               <LinksList onClick={() => setMenu(false)}>
                 <LocalMallOutlined style={{ marginRight: "10px" }} />
-                <Link className="link" to="/productsmenu">
+                <Link
+                  className="link"
+                  to={currentUser ? "/productsmenu" : "/register"}
+                >
                   Products
                 </Link>
               </LinksList>
@@ -521,7 +524,10 @@ const Navbar = () => {
               </LinksList>
             )}
             <LinksList>
-              <Link className="link" to="/productsmenu">
+              <Link
+                className="link"
+                to={currentUser ? "/productsmenu" : "/register"}
+              >
                 Products
               </Link>
             </LinksList>
