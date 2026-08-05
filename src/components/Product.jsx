@@ -158,7 +158,7 @@ const SoldOutTag = styled.span`
 // ─── Top Section: Image & White Circle Backdrop ─────────────────────
 const ProductInfoTop = styled.div`
   width: 100%;
-  height: 240px;
+  height: 350px;
   border-radius: 18px 18px 0 0;
   display: flex;
   align-items: center;
@@ -183,7 +183,7 @@ const ProductInfoTop = styled.div`
 const Image = styled.img`
   width: 100%;
   height: 100%;
-  object-fit: contain;
+  object-fit: fill;
   z-index: 2;
   // border-radius: 50%;
   border: 3px solid white;
@@ -392,13 +392,6 @@ const Product = ({ item }) => {
       {/* ─── IMAGE SECTION WITH HOVER OVERLAY ─── */}
       <ProductInfoTop>
         <Image src={item.img} alt={item.title} />
-
-        {/* {!item.inStock && (
-          <OutOfStockOverlay>
-          <OutOfStockTag>Out of stock</OutOfStockTag>
-          </OutOfStockOverlay>
-          )} */}
-
         <ActionBar>
           <ActionPanel>
             <AddButton
@@ -431,23 +424,6 @@ const Product = ({ item }) => {
             <SoldOutTag>Out of stock</SoldOutTag>
           </SoldOutOverlay>
         )}
-
-        {/* <Info>
-          <Link className="link" to={`/product/${item._id}`}>
-            <Icon
-              onClick={(e) => {
-                e.stopPropagation();
-              }}
-            >
-              <Search />
-            </Icon>
-          </Link>
-          <Link className="link" to="/cart">
-            <Icon onClick={handleCartClick} title="Add to Cart">
-              <ShoppingCart />
-            </Icon>
-          </Link>
-        </Info> */}
       </ProductInfoTop>
       {/* ─── BRIEF PRODUCT INFO ON A SINGLE PAGE (NO FLIP) ─── */}
       <ProductInfoBottom>
