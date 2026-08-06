@@ -718,10 +718,12 @@ const Cart = () => {
     }
   };
   const handelOrder = async () => {
-    const productOrdered = cart.products.map((product) => ({
-      productId: product._id,
-      quantity: product.quantity,
-    }));
+    const productOrdered = cart.products.map((product) => [
+      {
+        productId: product._id,
+        quantity: product.quantity,
+      },
+    ]);
     try {
       if (orderStatus) {
         const orders = await userRequest.post(
@@ -733,7 +735,7 @@ const Cart = () => {
             userId: currentUser._id,
             products: productOrdered,
             amount: cart.quantity,
-            address: {},
+            address: "",
             status: "Approved",
           },
         );
