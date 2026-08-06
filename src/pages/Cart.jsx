@@ -644,8 +644,8 @@ const stripePromise = loadStripe(KEY);
 
 const Cart = () => {
   const cart = useSelector((state) => state.cart);
-  const { currentUser } = useSelector((state) => state.user);
   const TOKEN = useSelector((state) => state.user.currentUser.accessToken);
+  const { currentUser } = useSelector((state) => state.user);
   console.log(currentUser);
   console.log(cart);
 
@@ -723,7 +723,9 @@ const Cart = () => {
           },
         );
       }
-    } catch (error) {}
+    } catch (error) {
+      console.log(error);
+    }
   };
   handelOrder();
   const handleCheckout = async () => {
@@ -733,6 +735,7 @@ const Cart = () => {
         products: cart.products,
         amount: cart.total * 100,
       });
+      console.log(res.data.url);
       window.location.href = res.data.url;
     } catch (err) {
       console.error(err);
