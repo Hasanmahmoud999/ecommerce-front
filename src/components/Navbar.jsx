@@ -425,7 +425,7 @@ const Navbar = () => {
               {currentUser?.isAdmin && (
                 <LinksList>
                   <DashboardOutlinedIcon style={{ marginRight: "10px" }} />
-                  <Link className="link" to="/">
+                  <Link className="link" to="admin-panel-4.netlify.app">
                     Dashboard
                   </Link>
                 </LinksList>
