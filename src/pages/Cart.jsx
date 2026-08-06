@@ -703,6 +703,20 @@ const Cart = () => {
     dispatch(removeProduct(uniqueId));
     triggerAlert(`"${title}" has been deleted from your bag.`);
   };
+
+  const handleCheckout = async () => {
+    setOrderStatus(true);
+    try {
+      const res = await userRequest.post("/checkout/payment", {
+        products: cart.products,
+        amount: cart.total * 100,
+      });
+      console.log(res.data.url);
+      window.location.href = res.data.url;
+    } catch (err) {
+      console.error(err);
+    }
+  };
   const handelOrder = async () => {
     const productOrdered = cart.products.map((product) => ({
       productId: product._id,
@@ -722,25 +736,13 @@ const Cart = () => {
             status: "Approved",
           },
         );
+        console.log(orders);
       }
     } catch (error) {
       console.log(error);
     }
   };
   handelOrder();
-  const handleCheckout = async () => {
-    setOrderStatus(true);
-    try {
-      const res = await userRequest.post("/checkout/payment", {
-        products: cart.products,
-        amount: cart.total * 100,
-      });
-      console.log(res.data.url);
-      window.location.href = res.data.url;
-    } catch (err) {
-      console.error(err);
-    }
-  };
   const handleEdite = (product) => {
     setEditingProduct(product);
     setOrginalProduct(
