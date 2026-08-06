@@ -644,6 +644,9 @@ const stripePromise = loadStripe(KEY);
 
 const Cart = () => {
   const cart = useSelector((state) => state.cart);
+  const { currentUser } = useSelector((state) => state.user);
+  const TOKEN = useSelector((state) => state.user.currentUser.accessToken);
+  console.log(currentUser);
   console.log(cart);
 
   const dispatch = useDispatch();
@@ -651,17 +654,11 @@ const Cart = () => {
   const [allProducts, setAllProducts] = useState();
   const [orginalProduct, setOrginalProduct] = useState();
   const [editingProduct, setEditingProduct] = useState(null);
-  // console.log(editingProduct);
-  // const [idProduct, setIDProdcut] = useState();
-  // console.log(idProduct);
   const [editColor, setEditColor] = useState("");
-  console.log("color is :", editColor);
   const [editSize, setEditSize] = useState("");
-  console.log("Size is :", editSize);
   const [editQty, setEditQuantity] = useState(1);
-  console.log("Qty is :", editQty);
   const [alertMsg, setAlertMsg] = useState("");
-  // console.log(first)
+  const [orderStatus, setOrderStatus] = useState(false);
 
   useEffect(() => {
     const getProducts = async () => {
@@ -706,14 +703,36 @@ const Cart = () => {
     dispatch(removeProduct(uniqueId));
     triggerAlert(`"${title}" has been deleted from your bag.`);
   };
+  const handelOrder = async () => {
+    const productOrdered = cart.products.map((product) => ({
+      productId: product._id,
+      quantity: product.quantity,
+    }));
+    try {
+      if (orderStatus) {
+        const orders = await userRequest.post(
+          "/orders",
+          {
+            headers: { token: `Bearer ${TOKEN}` },
+          },
+          {
+            userId: currentUser._id,
+            products: productOrdered,
+            amount: cart.quantity,
+            status: "Approved",
+          },
+        );
+      }
+    } catch (error) {}
+  };
+  handelOrder();
   const handleCheckout = async () => {
+    setOrderStatus(true);
     try {
       const res = await userRequest.post("/checkout/payment", {
         products: cart.products,
         amount: cart.total * 100,
       });
-      // console.log(res.data);
-      // Redirect the browser straight to Stripe's hosted checkout page
       window.location.href = res.data.url;
     } catch (err) {
       console.error(err);
@@ -725,7 +744,6 @@ const Cart = () => {
       allProducts.filter((product1) => product1._id === product._id),
     );
   };
-  // console.log(orginalProduct);
   return (
     <Container>
       <Announcment />

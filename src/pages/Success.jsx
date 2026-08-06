@@ -187,7 +187,7 @@ const Success = () => {
       </IconWrapper>
       <Title>Congratulations, Payment Success</Title>
       <SuccessInfo>your payment has been successfully processed.</SuccessInfo>
-      <StyledLink className="link" to="/">
+      <StyledLink className="link" to="https://luxe9.netlify.app/">
         REDIRECTED TO THE HOME PAGE <ArrowRightAltIcon />
       </StyledLink>
     </Container>
