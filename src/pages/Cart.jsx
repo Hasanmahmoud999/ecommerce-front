@@ -722,6 +722,13 @@ const Cart = () => {
       productId: product._id,
       quantity: product.quantity,
     }));
+    const orderInfo = {
+      userId: currentUser._id,
+      products: productOrdered,
+      amount: cart.quantity,
+      address: "",
+      status: "Approved",
+    };
     try {
       if (orderStatus) {
         const orders = await userRequest.post(
@@ -729,13 +736,7 @@ const Cart = () => {
           {
             headers: { token: `Bearer ${TOKEN}` },
           },
-          {
-            userId: currentUser._id,
-            products: productOrdered,
-            amount: cart.quantity,
-            address: "",
-            status: "Approved",
-          },
+          orderInfo,
         );
         console.log(orders);
       }
