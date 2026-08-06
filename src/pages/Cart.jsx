@@ -711,7 +711,7 @@ const Cart = () => {
         products: cart.products,
         amount: cart.total * 100,
       });
-      console.log(res.data.url);
+      console.log(res.data);
       window.location.href = res.data.url;
     } catch (err) {
       console.error(err);
