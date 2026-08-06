@@ -733,6 +733,7 @@ const Cart = () => {
             userId: currentUser._id,
             products: productOrdered,
             amount: cart.quantity,
+            address: {},
             status: "Approved",
           },
         );
