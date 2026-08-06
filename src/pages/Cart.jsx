@@ -731,13 +731,9 @@ const Cart = () => {
     };
     try {
       if (orderStatus) {
-        const orders = await userRequest.post(
-          "/orders",
-          {
-            headers: { token: `Bearer ${TOKEN}` },
-          },
-          orderInfo,
-        );
+        const orders = await userRequest.post("/orders", orderInfo, {
+          headers: { token: `Bearer ${TOKEN}` },
+        });
         console.log(orders);
       }
     } catch (error) {
