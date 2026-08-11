@@ -17,6 +17,7 @@ import DashboardOutlinedIcon from "@material-ui/icons/DashboardOutlined";
 import LocalMallOutlinedIcon from "@material-ui/icons/LocalMallOutlined";
 import HomeOutlinedIcon from "@material-ui/icons/HomeOutlined";
 import PersonAddOutlinedIcon from "@material-ui/icons/PersonAddOutlined";
+// import RotateLeftIcon from '@material-ui/icons/RotateLeft';
 import React, { useEffect, useState } from "react";
 import { styled } from "styled-components";
 import {
@@ -307,23 +308,54 @@ const MENUSolidButton = styled(MENUGhostButton)`
 const LogoutContainer = styled.button`
   display: flex;
   align-items: center;
-  background: linear-gradient(90deg, #0f766e 0%, #115e59 100%);
   border: 0.5px solid teal;
   font-size: 15px;
   border-radius: 10px;
   color: white;
   cursor: pointer;
-  transition: all 0.3s ease;
-
-  &:hover {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(110deg, #0f766e 0%, #115e59 55%, #0d9488 100%);
+  background-size: 200% 100%;
+  background-position: 0% 50%;
+  box-shadow:
+    0 14px 28px rgb(0 87 81 / 24%),
+    inset 0 1px 0 rgb(255 255 255 / 18%);
+  transition:
+    background-position 0.4s ease,
+    box-shadow 0.25s ease,
+    transform 0.2s ease;
+  &::after {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      120deg,
+      transparent,
+      rgba(255, 255, 255, 0.25),
+      transparent
+    );
+    transform: translateX(-110%);
+    transition: transform 0.7s ease;
+    content: "";
+  }
+  &:hover:not(:disabled) {
+    background-position: 100% 50%;
+    box-shadow: 0 18px 36px rgb(0 87 81 / 32%);
     transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(0, 110, 84, 0.26);
-    background: white;
-    color: teal;
+  }
+  &:hover:not(:disabled)::after {
+    transform: translateX(110%);
+  }
+  &:active:not(:disabled) {
+    transform: translateY(0);
+  }
+  &:focus-visible {
+    outline: 3px solid rgb(0 128 128 / 28%);
+    outline-offset: 3px;
   }
   &:disabled {
-    background-color: whitesmoke;
-    color: teal;
+    background: linear-gradient(110deg, #008080a8, #0f766ea8);
+    box-shadow: none;
     cursor: not-allowed;
   }
   ${md({ display: "none" })}

@@ -16,7 +16,7 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/productsmenu" element={currentUser && <ProductsMenu />} />
+        <Route path="/productsmenu" element={currentUser ? <ProductsMenu />:<Login/>} />
         <Route path="/products/:category" element={<ProductList />} />
         <Route path="/product/:id" element={<Product />} />
         <Route path="/cart" element={<Cart />} />
