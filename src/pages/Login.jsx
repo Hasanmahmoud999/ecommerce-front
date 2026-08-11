@@ -45,7 +45,7 @@ const Visual = styled.aside`
   position: relative;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: space-around;
   padding: clamp(36px, 5vw, 68px);
   color: #f5fbfa;
   background-image: url("https://images.pexels.com/photos/14738813/pexels-photo-14738813.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=1600");
