@@ -573,9 +573,6 @@ const Login = () => {
               </VisualFeature>
             </VisualFeatures>
           </VisualContent>
-          <VisualFooter>
-            <strong>256-bit</strong>· SSL encrypted member session
-          </VisualFooter>
         </Visual>
         <FormPanel>
           <Wrapper>
