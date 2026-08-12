@@ -30,9 +30,53 @@ const Title = styled.h1`
   margin-bottom: 30px;
   font-size: 50px;
 `;
+
+const ProductSkeleton = () => (
+  <SkeletonContainer>
+    <SkeletonImage />
+    <SkeletonText />
+  </SkeletonContainer>
+);
+
+const SkeletonContainer = styled.div`
+  width: 250px;
+  height: 350px;
+  background: #f2f2f2;
+  border-radius: 10px;
+  animation: pulse 1.5s infinite ease-in-out;
+
+  @keyframes pulse {
+    0% {
+      opacity: 0.6;
+    }
+    50% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0.6;
+    }
+  }
+`;
+
+const SkeletonImage = styled.div`
+  width: 100%;
+  height: 70%;
+  background: #e0e0e0;
+  border-radius: 10px;
+`;
+
+const SkeletonText = styled.div`
+  width: 60%;
+  height: 20px;
+  background: #d0d0d0;
+  margin: 10px auto;
+  border-radius: 5px;
+`;
+
 const Products = ({ cat, filters, sort, Url }) => {
   // console.log(Url)
   const [products, setProducts] = useState([]);
+  const [isFetching, setIsFetching] = useState(true);
   const [filteredProducts, setFilteredProducts] = useState([]);
 
   useEffect(() => {
@@ -48,6 +92,9 @@ const Products = ({ cat, filters, sort, Url }) => {
       } catch (err) {}
     };
     getProducts();
+    setTimeout(() => {
+      setIsFetching(false);
+    }, 1000);
     // console.log(products)
   }, [cat]);
 
@@ -64,7 +111,7 @@ const Products = ({ cat, filters, sort, Url }) => {
   useEffect(() => {
     if (sort === "newest") {
       setFilteredProducts((prev) =>
-        [...prev].sort((a, b) => new Date (b.createdAt) -new Date (a.createdAt)),
+        [...prev].sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)),
       );
     } else if (sort === "asc") {
       setFilteredProducts((prev) =>
@@ -76,19 +123,35 @@ const Products = ({ cat, filters, sort, Url }) => {
       );
     }
   }, [sort]);
+
   return (
     <Container>
       {Url === "homeProduct" ? <Title>Latest Products</Title> : ""}
       <Wrapper>
         {cat || Url === "productsmenu"
-          ? filteredProducts?.map((item) => (
-              <Product item={item} key={item.id} />
-            ))
+          ? isFetching
+            ? Array(8)
+                .fill()
+                .map((_, i) => <ProductSkeleton key={i} />)
+            : filteredProducts.map((item) => (
+                <Product
+                  item={item}
+                  key={item._id}
+                />
+              ))
           : Url === "homeProduct"
-            ? products
-                ?.slice(0, 5)
-                .map((item) => <Product item={item} key={item.id} />)
-            : products?.map((item) => <Product item={item} key={item.id} />)}
+            ? products?.slice(0, 5).map((item) => (
+                <Product
+                  item={item}
+                  key={item.id}
+                />
+              ))
+            : products?.map((item) => (
+                <Product
+                  item={item}
+                  key={item.id}
+                />
+              ))}
       </Wrapper>
     </Container>
   );

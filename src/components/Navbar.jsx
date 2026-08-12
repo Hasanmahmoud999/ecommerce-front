@@ -382,6 +382,17 @@ const Media = styled.div`
   position: absolute;
   top: -30px;
   left: 0px;
+  transform: translateX(0);
+  animation: slideIn 0.3s ease forwards;
+
+  @keyframes slideIn {
+    from {
+      transform: translateX(100%);
+    }
+    to {
+      transform: translateX(0);
+    }
+  }
 `;
 
 const IconContainer = styled.div`

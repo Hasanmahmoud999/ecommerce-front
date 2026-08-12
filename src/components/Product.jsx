@@ -391,7 +391,10 @@ const Product = ({ item }) => {
     <Container>
       {/* ─── IMAGE SECTION WITH HOVER OVERLAY ─── */}
       <ProductInfoTop>
-        <Image src={item.img} alt={item.title} />
+        <Image
+          src={item.img}
+          alt={item.title}
+        />
         <ActionBar>
           <ActionPanel>
             <AddButton
@@ -411,8 +414,14 @@ const Product = ({ item }) => {
               )}
             </AddButton>
 
-            <Link className="link" to={`/product/${item._id}`}>
-              <QuickViewButton type="button" aria-label="Quick view">
+            <Link
+              className="link"
+              to={`/product/${item._id}`}
+            >
+              <QuickViewButton
+                type="button"
+                aria-label="Quick view"
+              >
                 <Search size={20} />
               </QuickViewButton>
             </Link>
@@ -463,7 +472,11 @@ const Product = ({ item }) => {
               )}
             </span>
             {item.color.map((c) => (
-              <Swatch key={c} title={c} style={{ backgroundColor: c }} />
+              <Swatch
+                key={c}
+                title={c}
+                style={{ backgroundColor: c }}
+              />
             ))}
           </Swatches>
         </div>
@@ -480,7 +493,10 @@ const Product = ({ item }) => {
             </span>
             <CurrentPrice>$ {item.price.toFixed(2)}</CurrentPrice>
           </PriceWrapper>
-          <Link className="link" to={`/product/${item._id}`}>
+          <Link
+            className="link"
+            to={`/product/${item._id}`}
+          >
             <ProductInfoButton title="More product details">
               <span>More</span>
               <ArrowForward size={18} />
